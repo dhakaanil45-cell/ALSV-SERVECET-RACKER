@@ -145,60 +145,60 @@ a.btn{text-decoration:none;display:inline-block}
   <div class="logo"><div class="logo-i">🚙</div><div><div class="logo-t">ARMADO TRACK</div><div class="logo-s">Mahindra Armado Service Tracker</div></div></div>
   <div class="hb"><button class="btn btn-g" onclick="openBulk()">📍 Update All KM</button><button class="btn btn-p" onclick="openVeh()">＋ Add Vehicle</button></div>
 </header>
-<div class="bar">500 KM pehle alert &nbsp;|&nbsp; Engine Oil: 12 mahine (last service / service-in date se), 30 din pehle alert &nbsp;|&nbsp; I=Inspect R=Replace L=Lubricate</div>
+<div class="bar">Alert 500 KM before &nbsp;|&nbsp; Engine Oil: 12 months (from last service / service-in date), alert 30 days before &nbsp;|&nbsp; I=Inspect R=Replace L=Lubricate</div>
 <main>
   <div id="banner"><div class="bn-h" onclick="toggleBn()"><div><span class="bn-t" id="bnT">SERVICE ALERT</span><span class="bn-c" id="bnC">0</span></div><span id="bnA">▼</span></div><div id="bnItems"></div></div>
   <div class="sum" id="sum"></div>
   <div class="box">
     <div class="h2">🔍 Search Vehicle</div>
-    <div class="srow"><input class="inp" id="q" placeholder="Registration no. / Unit / Formation likhein..." oninput="doSearch()" autocomplete="off"><button class="btn btn-o" onclick="clearSearch()">✕</button></div>
+    <div class="srow"><input class="inp" id="q" placeholder="Enter Registration no. / Unit / Formation..." oninput="doSearch()" autocomplete="off"><button class="btn btn-o" onclick="clearSearch()">✕</button></div>
     <div id="sres" style="margin-top:12px"></div>
   </div>
-  <details class="box" id="allBox"><summary class="h2" id="allT" style="padding:0;cursor:pointer;margin:0">📂 Sabhi gaadiyan</summary><div class="wrap" style="margin-top:10px"><table class="ht"><thead><tr><th>Regn</th><th>Unit</th><th>Formation</th><th>KM</th><th>Status</th><th>Edit / Remove</th></tr></thead><tbody id="allRows"></tbody></table></div></details>
+  <details class="box" id="allBox"><summary class="h2" id="allT" style="padding:0;cursor:pointer;margin:0">📂 All Vehicles</summary><div class="wrap" style="margin-top:10px"><table class="ht"><thead><tr><th>Regn</th><th>Unit</th><th>Formation</th><th>KM</th><th>Status</th><th>Edit / Remove</th></tr></thead><tbody id="allRows"></tbody></table></div></details>
   <div id="dueBox" style="display:none"><div class="h2" id="dueT">🚨 Service Due / Overdue</div><div id="dueList"></div></div>
   <div class="box">
     <div class="h2">📋 SERVICE HISTORY</div>
     <div class="wrap"><table class="ht"><thead><tr><th>Date</th><th>Regn</th><th>Type</th><th>KM</th><th>Details</th></tr></thead><tbody id="hist"></tbody></table></div>
   </div>
   <div class="box">
-    <div class="h2">💾 Data</div>
-    <div class="ms">Data is phone/browser mein save hota hai. Dusre device par le jaane ke liye Backup lekar wahan Restore karein.</div>
+    <div class="h2">💾 Data Management</div>
+    <div class="ms">Data is stored locally in your browser. Use Backup to save a copy or Restore on another device.</div>
     <div class="foot"><button class="btn btn-g" onclick="backup()">⬇ Backup</button><button class="btn btn-o" onclick="document.getElementById('rf').click()">⬆ Restore</button><button class="btn btn-p" id="instBtn" style="display:none" onclick="doInstall()">📲 Install App</button><input type="file" id="rf" accept=".json,application/json" style="display:none" onchange="restore(event)"></div>
   </div>
 </main>
 
 <!-- ADD / EDIT VEHICLE -->
 <div class="mo" id="vehModal"><div class="md">
-  <div class="mt" id="vehT">➕ Add Armado</div><div class="ms">Mahindra Armado — details bharein</div>
+  <div class="mt" id="vehT">➕ Add Armado</div><div class="ms">Mahindra Armado — Enter vehicle details</div>
   <div class="r2"><div class="fl"><label>Registration No. *</label><input class="inp" id="fRegn" style="text-transform:uppercase" placeholder="e.g. 12 A 345678"></div><div class="fl"><label>Vintage (Year) *</label><input class="inp" id="fVin" type="number" placeholder="e.g. 2019"></div></div>
-  <div class="r2"><div class="fl"><label>Unit</label><input class="inp" id="fUnit" placeholder="Unit ka naam"></div><div class="fl"><label>Formation</label><input class="inp" id="fForm" placeholder="Formation ka naam"></div></div>
+  <div class="r2"><div class="fl"><label>Unit</label><input class="inp" id="fUnit" placeholder="Unit name"></div><div class="fl"><label>Formation</label><input class="inp" id="fForm" placeholder="Formation name"></div></div>
   <div class="r2"><div class="fl"><label>Current KM (Odometer) *</label><input class="inp" id="fKm" type="number" min="0" placeholder="e.g. 11400"></div><div class="fl"><label>Last Service KM</label><input class="inp" id="fLastKm" type="number" min="0" placeholder="e.g. 5000"></div></div>
-  <div class="fl"><small>Agar service milestone se pehle ki thi (jaise 9,500 par 10,000 wali), to Last Service KM mein milestone (10,000) daalein.</small></div>
-  <div class="r2"><div class="fl"><label>Last Service Date</label><input class="inp" id="fLastDate" type="date"></div><div class="fl"><label>Service mein aane ki date</label><input class="inp" id="fInSvc" type="date"></div></div>
-  <div class="fl"><small>⏱ Engine Oil ke 1 saal wale rule ke liye kam se kam ek date zaroori hai. Last service date hai to wahi use hoti hai, nahi to service mein aane ki date.</small></div>
+  <div class="fl"><small>If service was done before milestone (e.g. 9,500 for 10,000 schedule), enter the milestone (10,000) in Last Service KM.</small></div>
+  <div class="r2"><div class="fl"><label>Last Service Date</label><input class="inp" id="fLastDate" type="date"></div><div class="fl"><label>Service-in Date</label><input class="inp" id="fInSvc" type="date"></div></div>
+  <div class="fl"><small>⏱ At least one date is required for the 1-year Engine Oil rule. Last service date is preferred, otherwise service-in date.</small></div>
   <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;padding:10px;margin-bottom:6px">
-    <div style="font-size:10px;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:8px">👤 Driver (notification ke liye, optional)</div>
+    <div style="font-size:10px;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:8px">👤 Driver (Optional for notifications)</div>
     <div class="fl"><label>Driver Name</label><input class="inp" id="fDn"></div>
     <div class="r2"><div class="fl" style="margin:0"><label>WhatsApp No.</label><input class="inp" id="fDw" type="tel" placeholder="9876543210"></div><div class="fl" style="margin:0"><label>Email</label><input class="inp" id="fDe" type="email"></div></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px"><small style="font-size:10px;color:var(--muted)">Sirf ek cheez hatani ho to wo box khaali karke Save karein.</small><button class="btn btn-d btn-s" onclick="clearDriverForm()">🗑 Driver details hatayein</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px"><small style="font-size:10px;color:var(--muted)">To remove fields, leave empty and save.</small><button class="btn btn-d btn-s" onclick="clearDriverForm()">🗑 Clear Driver Details</button></div>
   </div>
-  <button class="btn btn-d" id="vehDel" style="display:none;width:100%;margin-top:10px;padding:11px" onclick="delVeh(editId)">🗑 Is gaadi ko remove karein</button>
+  <button class="btn btn-d" id="vehDel" style="display:none;width:100%;margin-top:10px;padding:11px" onclick="delVeh(editId)">🗑 Remove This Vehicle</button>
   <div class="ma"><button class="btn btn-p" onclick="saveVeh()">💾 Save</button><button class="btn btn-o" onclick="hide('vehModal')">Cancel</button></div>
 </div></div>
 
 <!-- SERVICE LOG -->
 <div class="mo" id="svcModal"><div class="md">
   <div class="mt" id="svcT">Log Service</div><div class="ms" id="svcS"></div>
-  <div class="tabs"><button id="modeFull" onclick="setMode('full')">🔧 Full Service (KM)</button><button id="modeOil" onclick="setMode('oil')">🛢️ Sirf Engine Oil</button></div>
+  <div class="tabs"><button id="modeFull" onclick="setMode('full')">🔧 Full Service (KM)</button><button id="modeOil" onclick="setMode('oil')">🛢️ Engine Oil Only</button></div>
   <div class="r2"><div class="fl"><label>Actual KM *</label><input class="inp" id="svcKm" type="number" min="0"></div><div class="fl"><label>Date *</label><input class="inp" id="svcDate" type="date"></div></div>
-  <div id="svcFull"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="ms" style="margin:0">Jo kaam ho gaye unhe tick karein</div><button class="btn btn-o btn-s" onclick="toggleAll()">Sab select / clear</button></div><div class="tn2" id="svcNote"></div><div id="svcTasks"></div></div>
-  <div id="svcOil" style="display:none"><div class="ms">Sirf Engine Oil badla gaya? Ye KM-milestone service ko nahi chhedta, bas Engine Oil ka 1 saal ka timer dobara shuru karta hai.</div></div>
+  <div id="svcFull"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="ms" style="margin:0">Check completed tasks</div><button class="btn btn-o btn-s" onclick="toggleAll()">Select / Clear All</button></div><div class="tn2" id="svcNote"></div><div id="svcTasks"></div></div>
+  <div id="svcOil" style="display:none"><div class="ms">Engine Oil changed only? This updates the 1-year Engine Oil timer without altering KM milestone tracking.</div></div>
   <div class="ma"><button class="btn btn-ok" onclick="saveSvc()">✅ Save</button><button class="btn btn-o" onclick="hide('svcModal')">Cancel</button></div>
 </div></div>
 
 <!-- BULK KM -->
 <div class="mo" id="bulkModal"><div class="md">
-  <div class="mt">📍 Update All KM</div><div class="ms">Sabhi gadiyon ka current KM ek saath update karein (sirf wahi bharein jo badla hai)</div>
+  <div class="mt">📍 Update All KM</div><div class="ms">Update current KM for all vehicles simultaneously (fill only updated ones)</div>
   <input class="inp" id="bulkQ" placeholder="Filter: regn / unit / formation..." oninput="filterBulk()" style="margin-bottom:10px">
   <div id="bulkList"></div>
   <div class="ma"><button class="btn btn-ok" onclick="saveBulk()">✅ Save All</button><button class="btn btn-o" onclick="hide('bulkModal')">Cancel</button></div>
@@ -210,14 +210,13 @@ a.btn{text-decoration:none;display:inline-block}
 // ===LOGIC-START===
 const WARN_KM=500, WARN_DAYS=30, OIL_MONTHS=12;
 const rng=(a,b,s)=>{const r=[];for(let k=a;k<=b;k+=s)r.push(k);return r;};
-const ALL=rng(10000,100000,5000);            // 10000,15000,...,100000 (2000 & 4000 removed)
-const TEN=rng(10000,100000,10000);           // 10000,20000,...
-const ODD5=rng(15000,95000,10000);           // 15000,25000,...,95000
-const E15=rng(15000,90000,15000);            // 15000,30000,...,90000
-const E20=rng(20000,100000,20000);           // 20000,40000,...,100000
+const ALL=rng(10000,100000,5000);
+const TEN=rng(10000,100000,10000);
+const ODD5=rng(15000,95000,10000);
+const E15=rng(15000,90000,15000);
+const E20=rng(20000,100000,20000);
 const MS=ALL;
 function T(name,s){const m={};(s.I||[]).forEach(k=>m[k]='I');(s.L||[]).forEach(k=>m[k]='L');(s.R||[]).forEach(k=>m[k]='R');return{name,map:m,everyKm:s.everyKm||0,note:s.note||''};}
-// Source: Mahindra Defence Systems "Recommended Maintenance Schedule Chart" (manual pp. 27-29)
 const SCHEDULE=[
  {cat:'Engine',tasks:[
   T('Engine Oil',{I:ALL,R:E15}),
@@ -268,7 +267,7 @@ const SCHEDULE=[
 ];
 const RANK={I:1,L:2,R:3};
 function taskAction(t,absKm){
-  const cyc=((absKm-1)%100000)+1;          // chart repeats every 100000 km
+  const cyc=((absKm-1)%100000)+1;
   let a=t.map[cyc]||'';
   if(!a&&t.everyKm&&absKm%t.everyKm===0)a='I';
   return a;
@@ -294,7 +293,7 @@ function oilTime(v,today){
   const ds=[v.lastSvcDate,v.lastOilDate].filter(x=>pISO(x)).sort();
   let ref=null,src='';
   if(ds.length){ref=ds[ds.length-1];src=(ref===v.lastOilDate)?'last engine oil change':'last service';}
-  else if(pISO(v.inServiceDate)){ref=v.inServiceDate;src='service mein aane ki date';}
+  else if(pISO(v.inServiceDate)){ref=v.inServiceDate;src='service-in date';}
   if(!ref)return{status:'nodate'};
   const due=addMonthsISO(ref,OIL_MONTHS),left=dayNum(due)-dayNum(today);
   return{status:left<=0?'due-now':left<=WARN_DAYS?'due-soon':'ok',due,left,ref,src};
@@ -308,6 +307,8 @@ function collectTasks(ms,oilDue){
       ms.forEach(m=>{const x=taskAction(t,m);if(x&&(RANK[x]>(RANK[a]||0)))a=x;});
       let timeOv=false;
       if(t.name==='Engine Oil'&&oilDue){if(a!=='R')timeOv=true;a='R';}
+      // Added Logic: If engine oil is due, automatically include Engine Oil Filter replacement
+      if(t.name==='Engine Oil Filter'&&oilDue){if(a!=='R')timeOv=true;a='R';}
       if(a)items.push({name:t.name,action:a,note:t.note,timeOv});
     });
     if(items.length)groups.push({cat:g.cat,items});
@@ -324,9 +325,9 @@ function vehInfo(v,today){
   const P={'ok':0,'nodate':0,'due-soon':1,'due-now':2};
   const status=P[kmStatus]>=P[oil.status]?kmStatus:oil.status;
   const reasons=[];
-  if(kmStatus!=='ok')reasons.push({kind:'KM',lv:kmStatus,text:'Service @ '+nxt.toLocaleString('en-IN')+' KM — '+(kmLeft<0?(-kmLeft).toLocaleString('en-IN')+' KM overdue':kmLeft===0?'abhi due':kmLeft.toLocaleString('en-IN')+' KM baaki')});
-  if(oil.status==='due-now')reasons.push({kind:'TIME',lv:'due-now',text:'Engine Oil change due — 1 saal poora ('+fmtD(oil.due)+(oil.left<0?', '+(-oil.left)+' din late':'')+')'});
-  if(oil.status==='due-soon')reasons.push({kind:'TIME',lv:'due-soon',text:'Engine Oil — 1 saal poora hone mein '+oil.left+' din ('+fmtD(oil.due)+')'});
+  if(kmStatus!=='ok')reasons.push({kind:'KM',lv:kmStatus,text:'Service @ '+nxt.toLocaleString('en-IN')+' KM — '+(kmLeft<0?(-kmLeft).toLocaleString('en-IN')+' KM overdue':kmLeft===0?'Due now':kmLeft.toLocaleString('en-IN')+' KM remaining')});
+  if(oil.status==='due-now')reasons.push({kind:'TIME',lv:'due-now',text:'Engine Oil change due — 1 year completed ('+fmtD(oil.due)+(oil.left<0?', '+(-oil.left)+' days late':'')+')'});
+  if(oil.status==='due-soon')reasons.push({kind:'TIME',lv:'due-soon',text:'Engine Oil — 1 year completing in '+oil.left+' days ('+fmtD(oil.due)+')'});
   const groups=collectTasks(ms,oil.status==='due-now');
   return{cur,last,nxt,kmLeft,kmStatus,target,ms,oil,status,reasons,groups};
 }
@@ -339,7 +340,7 @@ const fmt=n=>(Number(n)||0).toLocaleString('en-IN');
 const norm=s=>String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
 const KEY='armadoTrack_v1';
 let state=(function(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&Array.isArray(s.vehicles))return{vehicles:s.vehicles,history:Array.isArray(s.history)?s.history:[]};}catch(e){}return{vehicles:[],history:[]};})();
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){toast('Data save nahi ho paya (storage blocked/full)',true);}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){toast('Failed to save data (storage blocked/full)',true);}}
 const get=id=>state.vehicles.find(v=>v.id===id);
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function show(id){$(id).classList.add('open');}
@@ -353,14 +354,14 @@ function cardHTML(v){
   const pct=Math.max(0,Math.min(100,((I.cur-I.last)/(I.nxt-I.last))*100));
   const title=I.status==='due-now'?'🔴 SERVICE DUE / OVERDUE':I.status==='due-soon'?'🟠 SERVICE DUE SOON':'🟢 Next service @ '+fmt(I.nxt)+' KM';
   let reasons=I.reasons.map(r=>'<div class="rs '+r.lv+'">'+(r.kind==='KM'?'📍 ':'⏱️ ')+esc(r.text)+'</div>').join('');
-  if(!reasons)reasons='<div class="rs" style="color:#94a3b8">'+fmt(I.kmLeft)+' KM baaki'+(I.oil.status==='ok'?' • Engine Oil time-limit: '+fmtD(I.oil.due):'')+'</div>';
+  if(!reasons)reasons='<div class="rs" style="color:#94a3b8">'+fmt(I.kmLeft)+' KM remaining'+(I.oil.status==='ok'?' • Engine Oil time-limit: '+fmtD(I.oil.due):'')+'</div>';
   let inf='<div>🔧 Last service: '+(v.lastSvcDate?fmtD(v.lastSvcDate):'—')+' @ '+fmt(v.lastSvcKm)+' KM</div>';
-  if(v.inServiceDate)inf+='<div>🚙 Service mein aaye: '+fmtD(v.inServiceDate)+'</div>';
+  if(v.inServiceDate)inf+='<div>🚙 Service-in date: '+fmtD(v.inServiceDate)+'</div>';
   if(v.lastOilDate)inf+='<div>🛢️ Last Engine Oil change: '+fmtD(v.lastOilDate)+'</div>';
-  if(I.oil.status==='nodate')inf+='<div class="w">⚠️ Koi date nahi — Engine Oil ka 1 saal wala time-check band hai. Edit karke date bharein.</div>';
-  else inf+='<div>⏱️ Engine Oil time-limit: '+fmtD(I.oil.due)+' ('+(I.oil.left<=0?(-I.oil.left)+' din late':I.oil.left+' din baaki')+') — '+esc(I.oil.src)+' se</div>';
-  const skip=I.ms.length>1?'<div class="tn2">⚠️ '+I.ms.length+' milestones skip hue ('+fmt(I.ms[0])+' – '+fmt(I.ms[I.ms.length-1])+' KM) — beech ke Replace/Lube kaam bhi jod diye gaye hain.</div>':'';
-  let n=0;const tasks=I.groups.map(g=>{n+=g.items.length;return'<div class="tg">'+esc(g.cat)+'</div>'+g.items.map(t=>'<div class="tr"><div class="tn">'+esc(t.name)+(t.note?'<div class="tnote">'+esc(t.note)+'</div>':'')+(t.timeOv?'<span class="ttag">⏱ 1 saal poora — Engine Oil badalna hai</span>':'')+'</div><span class="act a'+t.action+'">'+ACT[t.action]+'</span></div>').join('');}).join('');
+  if(I.oil.status==='nodate')inf+='<div class="w">⚠️ No date specified — Engine Oil 1-year time check is inactive. Edit to add dates.</div>';
+  else inf+='<div>⏱️ Engine Oil time-limit: '+fmtD(I.oil.due)+' ('+(I.oil.left<=0?(-I.oil.left)+' days late':I.oil.left+' days remaining')+') — from '+esc(I.oil.src)+'</div>';
+  const skip=I.ms.length>1?'<div class="tn2">⚠️ '+I.ms.length+' milestones skipped ('+fmt(I.ms[0])+' – '+fmt(I.ms[I.ms.length-1])+' KM) — intermediate Replace/Lube tasks included.</div>':'';
+  let n=0;const tasks=I.groups.map(g=>{n+=g.items.length;return'<div class="tg">'+esc(g.cat)+'</div>'+g.items.map(t=>'<div class="tr"><div class="tn">'+esc(t.name)+(t.note?'<div class="tnote">'+esc(t.note)+'</div>':'')+(t.timeOv?'<span class="ttag">⏱ 1 year completed — Engine Oil & Filter replacement due</span>':'')+'</div><span class="act a'+t.action+'">'+ACT[t.action]+'</span></div>').join('');}).join('');
   const lbl=I.kmStatus==='ok'?'Agli service @ '+fmt(I.nxt)+' KM ke kaam (preview) — '+n+' tasks':'Tasks due @ '+fmt(I.target)+' KM — '+n+' tasks';
   const nt=(I.status!=='ok'||v.driverName||v.driverWA||v.driverEmail)?notifyHTML(v,I):'';
   return'<div class="card '+I.status+'"><div class="ch"><div class="ci"><div class="cico">🚙</div><div><div class="cr">'+esc(v.regn)+'</div><div class="cs">Mahindra Armado • Vintage '+esc(v.vintage)+'</div>'+((v.unit||v.formation)?'<div class="cs">'+(v.unit?'Unit: '+esc(v.unit):'')+(v.unit&&v.formation?' • ':'')+(v.formation?'Formation: '+esc(v.formation):'')+'</div>':'')+'</div></div><div class="cb"><button class="btn btn-o btn-s" onclick="openVeh(\''+v.id+'\')">✏️ Edit</button><button class="btn btn-d btn-s" onclick="delVeh(\''+v.id+'\')">🗑 Remove</button></div></div>'
@@ -372,15 +373,15 @@ function cardHTML(v){
 }
 function msgText(v,I){
   const l=I.reasons.map(r=>'• '+r.text);
-  return'🚙 SERVICE ALERT — ARMADO TRACK\n\nVehicle: '+v.regn+' (Mahindra Armado)\n'+(v.unit?'Unit: '+v.unit+'\n':'')+(v.formation?'Formation: '+v.formation+'\n':'')+'Current KM: '+fmt(I.cur)+'\n\n'+(l.length?l.join('\n'):'• Service reminder')+'\n\nKripya gaadi ke saath workshop mein report karein.\n— Workshop Manager';
+  return'🚙 SERVICE ALERT — ARMADO TRACK\n\nVehicle: '+v.regn+' (Mahindra Armado)\n'+(v.unit?'Unit: '+v.unit+'\n':'')+(v.formation?'Formation: '+v.formation+'\n':'')+'Current KM: '+fmt(I.cur)+'\n\n'+(l.length?l.join('\n'):'• Service reminder')+'\n\nPlease report to the workshop with the vehicle.\n— Workshop Manager';
 }
 function notifyHTML(v,I){
   const m=msgText(v,I);let wa='';
   let num=String(v.driverWA||'').replace(/\D/g,'');if(num.length===10)num='91'+num;
   if(num)wa='<a class="btn btn-s wa" target="_blank" rel="noopener" href="https://wa.me/'+num+'?text='+encodeURIComponent(m)+'">💬 WhatsApp</a>';
-  const rm=(v.driverName||v.driverWA||v.driverEmail)?'<button class="btn btn-d btn-s" onclick="clearDriver(\''+v.id+'\')">🗑 Driver hatayein</button>':'';
+  const rm=(v.driverName||v.driverWA||v.driverEmail)?'<button class="btn btn-d btn-s" onclick="clearDriver(\''+v.id+'\')">🗑 Clear Driver</button>':'';
   const em=v.driverEmail?'<a class="btn btn-s ml" href="mailto:'+esc(v.driverEmail)+'?subject='+encodeURIComponent('Service Alert — '+v.regn)+'&body='+encodeURIComponent(m)+'">✉️ Email</a>':'';
-  return'<div class="nt"><small>📣 Driver ko batayein</small><div class="nr"><div class="d">'+(v.driverName?esc(v.driverName):'Driver add nahi hai')+'<span>'+(v.driverWA?'📱 '+esc(v.driverWA):'')+' '+(v.driverEmail?'✉️ '+esc(v.driverEmail):'')+'</span></div>'+wa+em+rm+'</div></div>';
+  return'<div class="nt"><small>📣 Notify Driver</small><div class="nr"><div class="d">'+(v.driverName?esc(v.driverName):'No driver assigned')+'<span>'+(v.driverWA?'📱 '+esc(v.driverWA):'')+' '+(v.driverEmail?'✉️ '+esc(v.driverEmail):'')+'</span></div>'+wa+em+rm+'</div></div>';
 }
 
 function renderAll(){
@@ -401,14 +402,14 @@ function renderAll(){
   renderAllList(infos);renderHist();doSearch(true);
 }
 function renderAllList(infos){
-  $('allT').textContent='📂 Sabhi gaadiyan ('+infos.length+') — Edit / Remove yahan se';
+  $('allT').textContent='📂 All Vehicles ('+infos.length+') — Edit / Remove here';
   const L={'due-now':'🔴 Due','due-soon':'🟠 Soon','ok':'🟢 OK'};
   const rows=infos.slice().sort((a,b)=>a.v.regn.localeCompare(b.v.regn)).map(x=>'<tr><td><a href="#" style="color:var(--accent);text-decoration:none" onclick="goVeh(\''+x.v.id+'\');return false"><b>'+esc(x.v.regn)+'</b></a></td><td>'+esc(x.v.unit||'—')+'</td><td>'+esc(x.v.formation||'—')+'</td><td class="mono">'+fmt(x.v.currentKm)+'</td><td>'+L[x.I.status]+'</td><td style="white-space:nowrap"><button class="btn btn-o btn-s" onclick="openVeh(\''+x.v.id+'\')">✏️ Edit</button> <button class="btn btn-d btn-s" onclick="delVeh(\''+x.v.id+'\')">🗑 Remove</button></td></tr>');
-  $('allRows').innerHTML=rows.length?rows.join(''):'<tr><td colspan="6" class="empty">Abhi koi gaadi add nahi hui</td></tr>';
+  $('allRows').innerHTML=rows.length?rows.join(''):'<tr><td colspan="6" class="empty">No vehicles added yet</td></tr>';
 }
 function renderHist(){
   const h=state.history.slice(0,100);
-  $('hist').innerHTML=h.length?h.map(e=>'<tr><td class="mono">'+fmtD(e.date)+'</td><td><b style="color:var(--accent)">'+esc(e.regn)+'</b></td><td>'+esc(e.type)+'</td><td class="mono">'+fmt(e.km)+'</td><td style="min-width:180px;color:#cbd5e1">'+esc(e.details)+'</td></tr>').join(''):'<tr><td colspan="5" class="empty">Abhi koi service log nahi hui</td></tr>';
+  $('hist').innerHTML=h.length?h.map(e=>'<tr><td class="mono">'+fmtD(e.date)+'</td><td><b style="color:var(--accent)">'+esc(e.regn)+'</b></td><td>'+esc(e.type)+'</td><td class="mono">'+fmt(e.km)+'</td><td style="min-width:180px;color:#cbd5e1">'+esc(e.details)+'</td></tr>').join(''):'<tr><td colspan="5" class="empty">No service logs recorded yet</td></tr>';
 }
 function toggleBn(){const o=$('bnItems').classList.toggle('open');$('bnA').textContent=o?'▲':'▼';}
 function goVeh(id){const v=get(id);if(!v)return;$('q').value=v.regn;doSearch();$('q').scrollIntoView({behavior:'smooth',block:'start'});}
@@ -416,15 +417,15 @@ function doSearch(keep){
   const q=norm($('q').value),r=$('sres');
   if(!q){r.innerHTML='';return;}
   const f=state.vehicles.filter(v=>[v.regn,v.unit,v.formation].some(x=>norm(x).includes(q)));
-  if(!f.length){r.innerHTML='<div class="empty">🔍 "'+esc($('q').value)+'" naam ki koi gaadi nahi mili</div>';return;}
-  r.innerHTML=f.slice(0,6).map(cardHTML).join('')+(f.length>6?'<div class="empty">Aur '+(f.length-6)+' gaadiyan hain — number thoda lamba likhein</div>':'');
+  if(!f.length){r.innerHTML='<div class="empty">🔍 No vehicle found matching "'+esc($('q').value)+'"</div>';return;}
+  r.innerHTML=f.slice(0,6).map(cardHTML).join('')+(f.length>6?'<div class="empty">'+(f.length-6)+' more vehicles found — please refine search</div>':'');
 }
 function clearSearch(){$('q').value='';$('sres').innerHTML='';}
 
 // ----- add / edit -----
 let editId=null;
-function clearDriverForm(){['fDn','fDw','fDe'].forEach(k=>{$(k).value='';});toast('Driver details hat gayi — ab Save dabayein');}
-function clearDriver(id){const v=get(id);if(!v)return;if(!confirm(v.regn+' ke driver ki details (naam, mobile, email) hata dein?'))return;v.driverName='';v.driverWA='';v.driverEmail='';save();renderAll();toast('🗑️ Driver details hat gayi');}
+function clearDriverForm(){['fDn','fDw','fDe'].forEach(k=>{$(k).value='';});toast('Driver details cleared — click Save');}
+function clearDriver(id){const v=get(id);if(!v)return;if(!confirm('Remove driver details (name, mobile, email) for '+v.regn+'?'))return;v.driverName='';v.driverWA='';v.driverEmail='';save();renderAll();toast('🗑️ Driver details removed');}
 function openVeh(id){
   editId=id||null;const v=id?get(id):{};
   $('vehT').textContent=id?'✏️ Edit Armado':'➕ Add Armado';
@@ -437,24 +438,24 @@ function saveVeh(){
   const regn=$('fRegn').value.trim().toUpperCase().replace(/\s+/g,' ');
   const vin=parseInt($('fVin').value),km=parseInt($('fKm').value),lastKm=$('fLastKm').value===''?0:parseInt($('fLastKm').value);
   const ld=$('fLastDate').value,id2=$('fInSvc').value;
-  if(!regn)return toast('Registration number daalein',true);
-  if(isNaN(vin)||vin<1980||vin>2100)return toast('Vintage year sahi daalein',true);
-  if(isNaN(km)||km<0)return toast('Current KM daalein',true);
-  if(isNaN(lastKm)||lastKm<0)return toast('Last Service KM sahi daalein',true);
-  if(lastKm>km)return toast('Last Service KM, current KM se zyada nahi ho sakta',true);
-  if(!pISO(ld)&&!pISO(id2))return toast('Last service date ya service mein aane ki date — ek zaroor bharein',true);
-  if((ld&&ld>today)||(id2&&id2>today))return toast('Future date nahi chalegi',true);
-  if(state.vehicles.some(v=>v.id!==editId&&norm(v.regn)===norm(regn)))return toast('Ye registration number pehle se hai',true);
+  if(!regn)return toast('Please enter registration number',true);
+  if(isNaN(vin)||vin<1980||vin>2100)return toast('Please enter valid vintage year',true);
+  if(isNaN(km)||km<0)return toast('Please enter current KM',true);
+  if(isNaN(lastKm)||lastKm<0)return toast('Please enter valid last service KM',true);
+  if(lastKm>km)return toast('Last service KM cannot exceed current KM',true);
+  if(!pISO(ld)&&!pISO(id2))return toast('Please provide either last service date or service-in date',true);
+  if((ld&&ld>today)||(id2&&id2>today))return toast('Future dates are not allowed',true);
+  if(state.vehicles.some(v=>v.id!==editId&&norm(v.regn)===norm(regn)))return toast('Registration number already exists',true);
   const f={vintage:vin,unit:$('fUnit').value.trim(),formation:$('fForm').value.trim(),currentKm:km,lastSvcKm:lastKm,lastSvcDate:ld||'',inServiceDate:id2||'',driverName:$('fDn').value.trim(),driverWA:$('fDw').value.trim(),driverEmail:$('fDe').value.trim()};
   if(editId){const v=get(editId);if(f.lastSvcKm!==v.lastSvcKm)v.lastMs=0;if(v.regn!==regn)state.history.forEach(h=>{if(h.regn===v.regn)h.regn=regn;});v.regn=regn;Object.assign(v,f);}
   else state.vehicles.push(Object.assign({id:uid(),regn:regn,lastOilDate:'',lastMs:0},f));
-  save();hide('vehModal');renderAll();toast(editId?'✅ Vehicle update ho gayi':'✅ '+regn+' add ho gayi');
+  save();hide('vehModal');renderAll();toast(editId?'✅ Vehicle updated successfully':'✅ '+regn+' added successfully');
 }
-function delVeh(id){const v=get(id);if(!v)return;if(!confirm(v.regn+' ko remove karein? Ye wapas nahi hoga.'))return;state.vehicles=state.vehicles.filter(x=>x.id!==id);save();hide('vehModal');renderAll();toast('🗑️ '+v.regn+' remove ho gayi');}
+function delVeh(id){const v=get(id);if(!v)return;if(!confirm('Remove '+v.regn+'? This action cannot be undone.'))return;state.vehicles=state.vehicles.filter(x=>x.id!==id);save();hide('vehModal');renderAll();toast('🗑️ '+v.regn+' removed');}
 function updKm(id,btn){
   const i=btn.parentNode.querySelector('input'),val=parseInt(i.value),v=get(id);
-  if(isNaN(val)||val<0)return toast('Sahi KM daalein',true);
-  if(val<v.currentKm)return toast('Naya KM purane ('+fmt(v.currentKm)+') se kam hai. Galti sudharni ho to Edit use karein.',true);
+  if(isNaN(val)||val<0)return toast('Please enter valid KM',true);
+  if(val<v.currentKm)return toast('New KM is lower than current ('+fmt(v.currentKm)+'). Use Edit to correct errors.',true);
   v.currentKm=val;save();renderAll();toast('✅ '+v.regn+' → '+fmt(val)+' KM');
 }
 
@@ -462,7 +463,7 @@ function updKm(id,btn){
 function openBulk(){
   const list=state.vehicles.slice().sort((a,b)=>a.regn.localeCompare(b.regn));
   $('bulkQ').value='';
-  $('bulkList').innerHTML=list.length?list.map(v=>'<div class="brow" data-n="'+[v.regn,v.unit,v.formation].map(norm).join('|')+'"><div class="bi"><b>'+esc(v.regn)+'</b><small>Current: '+fmt(v.currentKm)+' KM'+((v.unit||v.formation)?' • '+esc([v.unit,v.formation].filter(Boolean).join(' / ')):'')+'</small></div><input class="inp" type="number" min="0" data-id="'+v.id+'" placeholder="Naya KM"></div>').join(''):'<div class="empty">Pehle gaadi add karein</div>';
+  $('bulkList').innerHTML=list.length?list.map(v=>'<div class="brow" data-n="'+[v.regn,v.unit,v.formation].map(norm).join('|')+'"><div class="bi"><b>'+esc(v.regn)+'</b><small>Current: '+fmt(v.currentKm)+' KM'+((v.unit||v.formation)?' • '+esc([v.unit,v.formation].filter(Boolean).join(' / ')):'')+'</small></div><input class="inp" type="number" min="0" data-id="'+v.id+'" placeholder="New KM"></div>').join(''):'<div class="empty">Add vehicles first</div>';
   show('bulkModal');
 }
 function filterBulk(){const q=norm($('bulkQ').value);document.querySelectorAll('#bulkList .brow').forEach(r=>{r.style.display=(!q||r.dataset.n.indexOf(q)>-1)?'flex':'none';});}
@@ -473,10 +474,10 @@ function saveBulk(){
     if(val<v.currentKm){low.push(v.regn);return;}
     v.currentKm=val;n++;
   });
-  if(!n&&!low.length)return toast('Koi KM nahi bhara',true);
+  if(!n&&!low.length)return toast('No KM values entered',true);
   save();renderAll();
-  if(low.length){toast('✅ '+n+' update. Kam KM wali skip hui: '+low.join(', '),true);if(n===0)return;}
-  else toast('✅ '+n+' gaadiyon ka KM update ho gaya');
+  if(low.length){toast('✅ '+n+' updated. Skipped lower KM: '+low.join(', '),true);if(n===0)return;}
+  else toast('✅ Updated KM for '+n+' vehicles');
   hide('bulkModal');
 }
 
@@ -486,7 +487,7 @@ function openSvc(id){
   const v=get(id),I=vehInfo(v,todayISO());
   svc={id,mode:(I.kmStatus==='ok'&&I.oil.status==='due-now')?'oil':'full',list:[]};
   $('svcT').textContent='Log Service — '+v.regn;
-  $('svcS').textContent='Current: '+fmt(I.cur)+' KM • Agli milestone: '+fmt(I.nxt)+' KM';
+  $('svcS').textContent='Current: '+fmt(I.cur)+' KM • Next milestone: '+fmt(I.nxt)+' KM';
   $('svcKm').value=v.currentKm;$('svcDate').value=todayISO();
   setMode(svc.mode);show('svcModal');
 }
@@ -497,43 +498,43 @@ function setMode(m){
 }
 function buildSvcTasks(){
   const v=get(svc.id),I=vehInfo(v,todayISO());svc.list=[];let h='';
-  I.groups.forEach(g=>{h+='<div class="tg">'+esc(g.cat)+'</div>';g.items.forEach(t=>{svc.list.push(t);h+='<label class="chk"><input type="checkbox" data-i="'+(svc.list.length-1)+'"><div class="tn">'+esc(t.name)+(t.timeOv?'<span class="ttag">⏱ 1 saal poora</span>':'')+'</div><span class="act a'+t.action+'">'+ACT[t.action]+'</span></label>';});});
+  I.groups.forEach(g=>{h+='<div class="tg">'+esc(g.cat)+'</div>';g.items.forEach(t=>{svc.list.push(t);h+='<label class="chk"><input type="checkbox" data-i="'+(svc.list.length-1)+'"><div class="tn">'+esc(t.name)+(t.timeOv?'<span class="ttag">⏱ 1 year completed</span>':'')+'</div><span class="act a'+t.action+'">'+ACT[t.action]+'</span></label>';});});
   $('svcTasks').innerHTML=h;
-  $('svcNote').textContent=I.ms.length>1?'⚠️ '+I.ms.length+' milestones skip hue — beech ke Replace/Lube kaam bhi list mein hain.':(I.kmStatus==='ok'?'Abhi KM-service due nahi hai (preview). Early service kar rahe hon to hi log karein.':'');
+  $('svcNote').textContent=I.ms.length>1?'⚠️ '+I.ms.length+' milestones skipped — intermediate Replace/Lube tasks included.':(I.kmStatus==='ok'?'KM service is not due yet (preview). Log only if performing early service.':'');
 }
 function toggleAll(){const b=[...document.querySelectorAll('#svcTasks input')];const all=b.every(x=>x.checked);b.forEach(x=>x.checked=!all);}
 function saveSvc(){
   const v=get(svc.id),today=todayISO(),km=parseInt($('svcKm').value),date=$('svcDate').value;
-  if(isNaN(km)||km<0)return toast('Sahi KM daalein',true);
-  if(!pISO(date))return toast('Date chunein',true);
-  if(date>today)return toast('Future date nahi chalegi',true);
+  if(isNaN(km)||km<0)return toast('Please enter valid KM',true);
+  if(!pISO(date))return toast('Please select date',true);
+  if(date>today)return toast('Future dates are not allowed',true);
   if(svc.mode==='oil'){
     v.lastOilDate=date;v.currentKm=Math.max(v.currentKm,km);
-    state.history.unshift({date,regn:v.regn,type:'Engine Oil only',km,details:'Engine Oil change (time-based) — 1 saal ka timer dobara shuru'});
+    state.history.unshift({date,regn:v.regn,type:'Engine Oil only',km,details:'Engine Oil change (time-based) — 1-year timer restarted'});
   }else{
     const boxes=[...document.querySelectorAll('#svcTasks input')],done=boxes.filter(b=>b.checked).map(b=>svc.list[+b.dataset.i]);
     const miss=boxes.length-done.length;
-    if(miss>0&&!confirm(miss+' task tick nahi hue. Phir bhi service complete mark karein?'))return;
+    if(miss>0&&!confirm(miss+' tasks are unchecked. Mark service as complete anyway?'))return;
     const base=Math.max(+v.lastSvcKm||0,+v.lastMs||0),nxt=nextMilestoneAfter(base);
     v.lastMs=km>=nxt?lastMilestoneAtOrBelow(km):nxt;
     v.lastSvcKm=km;v.lastSvcDate=date;v.currentKm=Math.max(v.currentKm,km);
     if(done.some(t=>t.name==='Engine Oil'&&t.action==='R'))v.lastOilDate=date;
-    state.history.unshift({date,regn:v.regn,type:'Full service ('+fmt(v.lastMs)+' KM)',km,details:done.length?done.map(t=>t.name+' ['+t.action+']').join(', '):'(koi task tick nahi)'});
+    state.history.unshift({date,regn:v.regn,type:'Full service ('+fmt(v.lastMs)+' KM)',km,details:done.length?done.map(t=>t.name+' ['+t.action+']').join(', '):'(no tasks checked)'});
   }
-  save();hide('svcModal');renderAll();toast('✅ Service log ho gayi — '+v.regn);
+  save();hide('svcModal');renderAll();toast('✅ Service logged — '+v.regn);
 }
 
 // ----- backup / restore -----
 function backup(){
   const b=new Blob([JSON.stringify({app:'armado-track',saved:new Date().toISOString(),vehicles:state.vehicles,history:state.history},null,1)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='armado-backup-'+todayISO()+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);toast('⬇ Backup file download ho gayi');
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='armado-backup-'+todayISO()+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);toast('⬇ Backup file downloaded');
 }
 function restore(ev){
   const f=ev.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||!Array.isArray(d.vehicles))throw 0;
-    if(!confirm(d.vehicles.length+' gaadiyon ka data restore hoga. Abhi ka data replace ho jayega. Aage badhein?'))return;
-    state={vehicles:d.vehicles,history:Array.isArray(d.history)?d.history:[]};save();renderAll();toast('✅ Data restore ho gaya');
-  }catch(e){toast('Ye sahi backup file nahi hai',true);}ev.target.value='';};
+    if(!confirm('Restore data for '+d.vehicles.length+' vehicles? Current data will be replaced. Proceed?'))return;
+    state={vehicles:d.vehicles,history:Array.isArray(d.history)?d.history:[]};save();renderAll();toast('✅ Data restored successfully');
+  }catch(e){toast('Invalid backup file',true);}ev.target.value='';};
   r.readAsText(f);
 }
 
